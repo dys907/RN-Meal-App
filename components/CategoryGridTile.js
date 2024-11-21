@@ -1,5 +1,13 @@
-import { View, Pressable } from "react-native";
+import { View, Pressable, Text } from "react-native";
 
-const CategoryGridTitle = (params) => {
-    return <View></View>
+const CategoryGridTitle = ({title, color}) => {
+    return <View>
+        <Pressable>
+            <View>
+                <Text>{title}</Text>
+            </View>
+        </Pressable>
+    </View>
 }
+
+export default CategoryGridTitle
