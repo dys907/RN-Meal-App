@@ -1,27 +1,34 @@
-import CategoryGridTitle from '../components/CategoryGridTile'
-import {CATEGORIES} from '../data/dummy-data'
-import { FlatList, StyleSheet } from 'react-native'
+import CategoryGridTitle from "../components/CategoryGridTile";
+import { CATEGORIES } from "../data/dummy-data";
+import { FlatList, StyleSheet } from "react-native";
 
+const CategoriesScreen = ({ navigation }) => {
+  const renderCategoryItem = (itemData) => {
+    const pressHandler = () => {
+      navigation.navigate("MealsOverview", {
+        categoryId: itemData.item.id,
+      });
+    };
 
-const renderCategoryItem = (itemData) => {
-    return <CategoryGridTitle 
-            title={itemData.item.title} 
-            color={itemData.item.color}/>
-    
-}
+    return (
+      <CategoryGridTitle
+        title={itemData.item.title}
+        color={itemData.item.color}
+        onPress={pressHandler}
+      />
+    );
+  };
 
-const CategoriesScreen = (params) => {
-    
-    return <FlatList 
-            data={CATEGORIES} 
-            keyExtractor={(item)=>item.id}
-            renderItem={renderCategoryItem}
-            numColumns={2}
-            />  
-}
+  return (
+    <FlatList
+      data={CATEGORIES}
+      keyExtractor={(item) => item.id}
+      renderItem={renderCategoryItem}
+      numColumns={2}
+    />
+  );
+};
 
-export default CategoriesScreen
+export default CategoriesScreen;
 
-const styles = StyleSheet.create({
-
-})
+const styles = StyleSheet.create({});
