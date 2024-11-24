@@ -11,7 +11,6 @@ const MealsOverviewScreen = ({route, navigation}) => {
     })
 
 
-
     useLayoutEffect(() => {
         const categoryTitle = CATEGORIES.find((category)=> category.id === catID).title
 
@@ -27,12 +26,12 @@ const MealsOverviewScreen = ({route, navigation}) => {
 
         const item = itemData.item
         const mealItemProps = {
+            id: item.id,
             title: item.title,
             imgUrl: item.imageUrl,
             affordability: item.affordability,
             complexity: item.complexity,
-            duration: item.duration
-
+            duration: item.duration,
         }
 
         return <MealItem {...mealItemProps}/>

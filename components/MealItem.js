@@ -1,18 +1,42 @@
-import { View, Text, Pressable, Image, StyleSheet, Platform } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  Image,
+  StyleSheet,
+  Platform,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import MealsDetails from "./MealsDetails";
 
-const MealItem = ({ title, imgUrl, duration, complexity, affordability }) => {
+const MealItem = ({
+  id,
+  title,
+  imgUrl,
+  duration,
+  complexity,
+  affordability,
+}) => {
+  const pressHandler = () => {
+    navigation.navigate("MealDetails", { categoryId: id });
+  };
+  const navigation = useNavigation();
+
   return (
     <View style={styles.mealItem}>
-      <Pressable style={({pressed})=> pressed ? styles.pressed: null}>
+      <Pressable
+        style={({ pressed }) => (pressed ? styles.pressed : null)}
+        onPress={pressHandler}
+      >
         <View style={styles.innerContainer}>
           <Image source={{ uri: imgUrl }} style={styles.image} />
           <Text style={styles.title}>{title}</Text>
         </View>
-        <View style={styles.details}>
-          <Text style={styles.detailItem}>{duration}</Text>
-          <Text style={styles.detailItem}>{complexity.toUpperCase()}</Text>
-          <Text style={styles.detailItem}>{affordability.toUpperCase()}</Text>
-        </View>
+        <MealsDetails
+          duration={duration}
+          complexity={complexity}
+          affordability={affordability}
+        />
       </Pressable>
     </View>
   );
@@ -33,11 +57,11 @@ const styles = StyleSheet.create({
     overflow: Platform.OS === "ios" ? "visible" : "hidden",
   },
   pressed: {
-    opacity: 0.5
+    opacity: 0.5,
   },
   innerContainer: {
     borderRadius: 8,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   image: {
     width: "100%",
@@ -48,15 +72,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "center",
     margin: 8,
-  },
-  details: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 8,
-    justifyContent: "center",
-  },
-  detailItem: {
-    marginHorizontal: 4,
-    fontSize: 12,
   },
 });
