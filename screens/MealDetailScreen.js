@@ -4,23 +4,31 @@ import { MEALS } from "../data/dummy-data";
 import MealsDetails from "../components/MealsDetails";
 import Subtitle from "../components/MealDetail/Subtitle";
 import List from "../components/MealDetail/List";
+import { useDispatch, useSelector } from "react-redux";
+import { addFavourite, removeFavourite } from "../store/redux/favourite";
 import IconButton from "../components/IconButton";
-import { FavouritesContext } from "../store/context/favourites-context";
+// import { FavouritesContext } from "../store/context/favourites-context";
 
 
 const MealDetailScreen = ({ route, navigation }) => {
 
-  const favouriteMealsContext = useContext(FavouritesContext)
+  // const favouriteMealsContext = useContext(FavouritesContext)
+  const favouriteMealsIds = useSelector((state)=> state.favouriteMeals.ids)
+
+  const dispatch = useDispatch()
 
   const catID = route.params.categoryId;
   const selectedMeal = MEALS.find((meal) => catID === meal.id);
 
-  const mealIsFavourite = favouriteMealsContext.ids.includes(catID)
+  // const mealIsFavourite = favouriteMealsContext.ids.includes(catID)
+  const mealIsFavourite = favouriteMealsIds.includes(catID)
   const changeFavouriteStatusHandler = () => {
     if(mealIsFavourite) {
-      favouriteMealsContext.removeFavourite(catID)
+      // favouriteMealsContext.removeFavourite(catID)
+      dispatch(removeFavourite({ id: catID}))
     } else {
-      favouriteMealsContext.addFavourite(catID)
+      // favouriteMealsContext.addFavourite(catID)
+      dispatch(addFavourite({id: catID}))
     }
   }
 
